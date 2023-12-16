@@ -26,6 +26,7 @@ public class RobotMap {
          * CAN ID of the left follower motor controller
          */
         public static final int RIGHT_FOLLOWER_CAN_ID = 6;
+
     }
 
         /**
@@ -47,5 +48,11 @@ public class RobotMap {
          * adjust output of turns to tone down the final output.
          */
         public static final double TURN_SCALER = 0.7;
+
+        /*
+         * Rate limit for acceleration to prevent brownouts. 
+         * Initial value matches 2022 robot value of 2.25, but can be adjusted as needed
+         */
+        public static final double ACCEL_SLEW_RATE = 4.5;
     }
 }

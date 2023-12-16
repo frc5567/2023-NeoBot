@@ -1,5 +1,6 @@
 package frc.robot;
 
+import edu.wpi.first.math.filter.SlewRateLimiter;
 import edu.wpi.first.wpilibj.XboxController;
 
 /**
@@ -8,21 +9,25 @@ import edu.wpi.first.wpilibj.XboxController;
 public class PilotController {
     private XboxController m_controller;
 
+    private SlewRateLimiter m_accelFilter;
+
     /**
      * Constructor for the pilot controller. Instantiates the xbox controller.
      */
     public PilotController() {
         m_controller = new XboxController(RobotMap.PilotControllerConstants.XBOX_CONTROLLER_USB_PORT);
+        m_accelFilter = new SlewRateLimiter(RobotMap.PilotControllerConstants.ACCEL_SLEW_RATE);
     }
 
     public double getDriverSpeed() {
-
-        return adjustForDeadband(m_controller.getRightTriggerAxis() - m_controller.getLeftTriggerAxis());
+        double turn = m_controller.getRightTriggerAxis() - m_controller.getLeftTriggerAxis();
+        turn = m_accelFilter.calculate(turn);
+        return adjustForDeadband(turn);
     }
     
     public double getDriverTurn() {
         //Adjusting for a deadband to compensate for controller stick drift.
-        Double turnInput = m_controller.getLeftX();
+        Double turnInput = -m_controller.getLeftX();
         Double squaredTurnInput = turnInput * turnInput;
         squaredTurnInput = Math.copySign(squaredTurnInput, turnInput);
 

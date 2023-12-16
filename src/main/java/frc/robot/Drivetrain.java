@@ -38,11 +38,11 @@ public class Drivetrain {
      */
     public void initDrivetrain() {
  
-        m_leftLeader.setInverted(true);
-        m_leftFollower.setInverted(true);
+        m_leftLeader.setInverted(false);
+        m_leftFollower.setInverted(false);
         
-        m_rightLeader.setInverted(false);
-        m_rightFollower.setInverted(false);
+        m_rightLeader.setInverted(true);
+        m_rightFollower.setInverted(true);
 
     }
 
