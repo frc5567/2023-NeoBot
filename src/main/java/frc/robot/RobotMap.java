@@ -53,6 +53,6 @@ public class RobotMap {
          * Rate limit for acceleration to prevent brownouts. 
          * Initial value matches 2022 robot value of 2.25, but can be adjusted as needed
          */
-        public static final double ACCEL_SLEW_RATE = 4.5;
+        public static final double ACCEL_SLEW_RATE = 1.6;
     }
 }
