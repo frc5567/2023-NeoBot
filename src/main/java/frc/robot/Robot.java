@@ -21,6 +21,7 @@ public class Robot extends TimedRobot {
   private final SendableChooser<String> m_chooser = new SendableChooser<>();
 
   private Drivetrain m_drivetrain; 
+  private PilotController m_controller;
 
   /**
    * This function is run when the robot is first started up and should be used for any
@@ -33,6 +34,9 @@ public class Robot extends TimedRobot {
     SmartDashboard.putData("Auto choices", m_chooser);
 
     m_drivetrain = new Drivetrain();
+    m_controller = new PilotController();
+
+    m_drivetrain.initDrivetrain();
   }
 
   /**
@@ -89,6 +93,9 @@ public class Robot extends TimedRobot {
   public void teleopPeriodic() {
     double curSpeed = 0.0;
     double curTurn = 0.0;
+
+    curSpeed = m_controller.getDriverSpeed();
+    curTurn = m_controller.getDriverTurn();
     
     m_drivetrain.arcadeDrive(curSpeed, curTurn);
   }
